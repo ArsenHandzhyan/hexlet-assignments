@@ -17,7 +17,7 @@ public final class App {
         List<String> domains = Data.getDomains();
         // Передаем обработчик запроса
         app.get("/phones", ctx -> ctx.json(phones));
-        app.post("/domains", ctx -> ctx.json(domains));
+        app.get("/domains", ctx -> ctx.json(domains));
         return app;
         // END
     }
