@@ -10,6 +10,8 @@ public class Application {
     public static void main(String[] args) {
         Method[] methods = Address.class.getDeclaredMethods();
         Arrays.stream(methods).filter(method -> method.isAnnotationPresent(Inspect.class))
-                .forEach(method -> System.out.printf("Method %s returns a value of type %s. \n", method.getName(), method.getReturnType()));
+                .forEach(method -> System.out.printf("Method %s returns a value of type %s. \n",
+                        method.getName(),
+                        method.getReturnType()));
     }
 }
