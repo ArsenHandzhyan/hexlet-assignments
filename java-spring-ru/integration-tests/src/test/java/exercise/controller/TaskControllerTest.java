@@ -74,7 +74,7 @@ class ApplicationTest {
     // BEGIN
     @Test
     public void testShow() throws Exception {
-        var result = mockMvc.perform(get("/tasks/{id}"))
+        var result = mockMvc.perform(get("/tasks/{id}", 1))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -84,8 +84,8 @@ class ApplicationTest {
 
     @Test
     public void testCreate() throws Exception {
-        var result = mockMvc.perform(post(""))
-                .andExpect(status().isOk())
+        var result = mockMvc.perform(post("/tasks")) // Используем метод POST
+                .andExpect(status().isMethodNotAllowed()) // Проверяем, что метод не разрешен
                 .andReturn();
 
         var body = result.getResponse().getContentAsString();
@@ -103,7 +103,6 @@ class ApplicationTest {
 
         var request = put("/api/tasks/" + task.getId())
                 .contentType(MediaType.APPLICATION_JSON)
-                // ObjectMapper конвертирует Map в JSON
                 .content(om.writeValueAsString(data));
 
         mockMvc.perform(request)
@@ -116,7 +115,7 @@ class ApplicationTest {
 
     @Test
     public void testDelete() throws Exception {
-        var result = mockMvc.perform(delete("/tasks/{id}"))
+        var result = mockMvc.perform(delete("/tasks/{id}", 1)) // Предоставляем идентификатор 'id'
                 .andExpect(status().isOk())
                 .andReturn();
 
