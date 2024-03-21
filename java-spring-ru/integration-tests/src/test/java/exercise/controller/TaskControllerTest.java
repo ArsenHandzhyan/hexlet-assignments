@@ -84,7 +84,7 @@ class ApplicationTest {
 
     @Test
     public void testCreate() throws Exception {
-        var result = mockMvc.perform(get(""))
+        var result = mockMvc.perform(post(""))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -94,11 +94,7 @@ class ApplicationTest {
 
     @Test
     public void testUpdate() throws Exception {
-        var task = Instancio.of(Task.class)
-                .ignore(Select.field(Task::getId))
-                .supply(Select.field(Task::getTitle), () -> faker.lorem().word())
-                .supply(Select.field(Task::getDescription), () -> faker.lorem().paragraph())
-                .create();
+        var task = generateTask();
         taskRepository.save(task);
 
         var data = new HashMap<>();
@@ -120,7 +116,7 @@ class ApplicationTest {
 
     @Test
     public void testDelete() throws Exception {
-        var result = mockMvc.perform(get("/tasks/{id}"))
+        var result = mockMvc.perform(delete("/tasks/{id}"))
                 .andExpect(status().isOk())
                 .andReturn();
 
