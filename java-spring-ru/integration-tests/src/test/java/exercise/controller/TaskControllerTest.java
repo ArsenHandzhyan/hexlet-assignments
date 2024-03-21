@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.HashMap;
-
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -89,10 +87,6 @@ class ApplicationTest {
         task.setTitle("title");
         task.setDescription("description");
         taskRepository.save(task);
-
-        var data = new HashMap<>();
-        data.put("title", "updated title");
-        data.put("description", "updated description");
 
         mockMvc.perform(put("/api/tasks/{id}", task.getId())
                         .contentType(MediaType.APPLICATION_JSON)
