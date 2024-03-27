@@ -78,7 +78,9 @@ public class ProductsController {
 
     private Product convertToEntity(ProductCreateDTO dto) {
         Product product = new Product();
+        product.setName(dto.getTitle());
         product.setCost(dto.getPrice());
+        product.setBarcode(dto.getVendorCode());
         return product;
     }
 
