@@ -17,6 +17,7 @@ import exercise.repository.GuestRepository;
 import exercise.dto.GuestDTO;
 import exercise.dto.GuestCreateDTO;
 import exercise.exception.ResourceNotFoundException;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/guests")
