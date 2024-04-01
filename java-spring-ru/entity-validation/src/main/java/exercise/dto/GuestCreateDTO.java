@@ -1,35 +1,34 @@
 package exercise.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.*;
+import java.time.LocalDate;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import javax.validation.Valid;
-import exercise.dto.GuestCreateDTO;
+// BEGIN
 @Setter
 @Getter
 public class GuestCreateDTO {
 
-    @NotBlank(message = "Name must not be empty")
+    @NotBlank(message = "Имя гостя не может быть пустым")
     private String name;
 
-    @Email(message = "Invalid email format")
-    @NotBlank(message = "Email must not be empty")
+    @NotBlank(message = "Электронная почта гостя не может быть пустой")
+    @Email(message = "Электронная почта гостя должна быть валидной")
     private String email;
 
-    @Pattern(regexp = "^\\+\\d{11,13}$", message = "Phone number must start with '+' and contain 11 to 13 digits")
+    @NotBlank(message = "Номер телефона гостя не может быть пустым")
+    @Pattern(regexp="\\+\\d{11,13}", message="Номер телефона должен начинаться с символа + и содержать от 11 до 13 цифр")
     private String phoneNumber;
 
-    @Pattern(regexp = "^\\d{4}$", message = "Club card must consist of exactly four digits")
+    @NotBlank(message = "Номер клубной карты гостя не может быть пустым")
+    @Pattern(regexp="\\d{4}", message="Номер клубной карты должен состоять ровно из четырех цифр")
     private String clubCard;
 
-    @FutureOrPresent(message = "Club card valid until date must be in the present or future")
+    @NotBlank(message = "Срок действия клубной карты гостя не может быть пустым")
     private LocalDate cardValidUntil;
 }
+// END

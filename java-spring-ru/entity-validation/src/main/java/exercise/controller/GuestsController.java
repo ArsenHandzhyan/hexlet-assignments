@@ -17,7 +17,6 @@ import exercise.repository.GuestRepository;
 import exercise.dto.GuestDTO;
 import exercise.dto.GuestCreateDTO;
 import exercise.exception.ResourceNotFoundException;
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/guests")
@@ -47,17 +46,12 @@ public class GuestsController {
     }
 
     // BEGIN
-    @PostMapping
-    public ResponseEntity<String> registerGuest(@Valid @RequestBody GuestCreateDTO guestCreateDTO, BindingResult result) {
-        if (result.hasErrors()) {
-            // Если есть ошибки валидации, вернуть код ответа 400 Bad Request с сообщением об ошибке
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid guest data");
-        }
-
-        // В противном случае выполнить логику регистрации гостя
-        // (например, сохранение гостя в базу данных)
-
-        return ResponseEntity.ok("Guest registered successfully");
+    @PostMapping(path = "")
+    @ResponseStatus(HttpStatus.CREATED)
+    public GuestDTO create(@RequestBody @Valid GuestCreateDTO guestCreateDTO) {
+        var guest = guestMapper.map(guestCreateDTO);
+        var savedGuest =  guestRepository.save(guest);
+        return guestMapper.map(savedGuest);
     }
     // END
 }
