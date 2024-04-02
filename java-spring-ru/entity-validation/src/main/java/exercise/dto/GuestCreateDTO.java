@@ -1,16 +1,16 @@
 package exercise.dto;
 
+// BEGIN
+
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-// BEGIN
-@Setter
-@Getter
+@Data
 public class GuestCreateDTO {
 
     @NotBlank(message = "Имя гостя не может быть пустым")
@@ -28,7 +28,8 @@ public class GuestCreateDTO {
     @Pattern(regexp="\\d{4}", message="Номер клубной карты должен состоять ровно из четырех цифр")
     private String clubCard;
 
-    @NotBlank(message = "Срок действия клубной карты гостя не может быть пустым")
+    @Future(message = "Срок действия клубной карты должен быть еще не истекшим")
     private LocalDate cardValidUntil;
+
 }
 // END

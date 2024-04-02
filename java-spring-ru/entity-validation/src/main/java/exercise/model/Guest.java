@@ -33,9 +33,11 @@ public class Guest {
     @GeneratedValue(strategy = IDENTITY)
     private long id;
 
+    // BEGIN
     @NotBlank(message = "Имя гостя не может быть пустым")
     private String name;
 
+    @Column(unique = true)
     @NotBlank(message = "Электронная почта гостя не может быть пустой")
     @Email(message = "Электронная почта гостя должна быть валидной")
     private String email;
@@ -50,6 +52,7 @@ public class Guest {
 
     @Future(message = "Срок действия клубной карты должен быть еще не истекшим")
     private LocalDate cardValidUntil;
+    // END
 
     @CreatedDate
     private LocalDate createdAt;

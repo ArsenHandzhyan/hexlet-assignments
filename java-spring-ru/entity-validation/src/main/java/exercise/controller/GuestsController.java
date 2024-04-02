@@ -3,6 +3,7 @@ package exercise.controller;
 import exercise.mapper.GuestMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +47,7 @@ public class GuestsController {
     }
 
     // BEGIN
-    @PostMapping(path = "")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public GuestDTO create(@RequestBody @Valid GuestCreateDTO guestCreateDTO) {
         var guest = guestMapper.map(guestCreateDTO);
